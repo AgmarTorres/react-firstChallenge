@@ -2,9 +2,18 @@
   text-align: center;
 }
 
+.title {
+  margin-top: 3vh;
+  margin-bottom: 5vh;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 @media (prefers-reduced-motion: no-preference) {

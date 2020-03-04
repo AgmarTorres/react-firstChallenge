@@ -2,18 +2,24 @@ import { repositoryTypes } from "./repository.types";
 
 const initialState = {
   repositories: [],
-  items: [],
   page: 1,
   hasMore: true
 };
 
 function repositorieReducer(state = initialState, action) {
+  
   switch (action.type) {
-    case action.type === repositoryTypes.DATA_LOADED:
+    case repositoryTypes.FETCH_DATA_START:
+      return {
+        ...state,
+        repositories: action.payload.repositories,
+        page: action.page
+      };
+
+    case repositoryTypes.FETCH_DATA_LOAD:
       return {
         ...state,
         repositories: state.repositories.concat(action.payload.repositories),
-        items: state.items.concat(action.payload.items),
         page: action.page
       };
     default:

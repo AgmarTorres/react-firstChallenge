@@ -1,3 +1,4 @@
 export const repositoryTypes = {
-    DATA_LOADED: "DATA_LOADED"
+    FETCH_DATA_START: "FETCH_DATA_START",
+    FETCH_DATA_LOAD: "FETCH_DATA_LOAD"
 }

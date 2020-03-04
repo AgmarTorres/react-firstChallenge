@@ -1,32 +1,34 @@
 import React from "react";
 import Repository from "../repository/repository.component";
+import { SpinnerContainer, SpinnerOverlay } from "../home/with-spinner.styles";
+
+import "./home.styles.scss";
+import { bindActionCreators } from "redux";
 
 import { connect } from "react-redux";
 import { getData } from "../../redux/repositories/repositories.action";
 
-import {bindActionCreators} from 'redux'
-
-import InfiniteScroll from "react-infinite-scroll-component";
-
-class Home extends React.Component {
- 
-  render() {
-  //  <Repository id={index} key={index} item={item}></Repository>
+const Home = ({ repositories, page, getData }) => {
   return (
-      <div className="App">
-        <h1 className="title"> Git Repositories</h1>
-      </div>
-    );
-  }
-}
+    <div className="home">
+      {repositories.total_count ? (
+        repositories.items.map((item, index) => (
+          <Repository id={index} key={index} item={item}></Repository>
+        ))
+      ) : (
+        <SpinnerOverlay>
+          <SpinnerContainer />
+        </SpinnerOverlay>
+      )}
+    </div>
+  );
+};
 
 const mapStateToProps = state => ({
-  items: state.repositories.items,
+  repositories: state.repositories.repositories,
   page: state.repositories.page
 });
 
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(getData, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(getData, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
