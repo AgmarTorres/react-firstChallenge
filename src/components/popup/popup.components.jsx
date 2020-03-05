@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Modal from "react-awesome-modal";
 import Pull from "./../pulls/pull.component";
 import "./popup.styles.scss";
+import { Link } from "react-router-dom";
 
 export default class PopUp extends Component {
   constructor(props) {
@@ -28,14 +29,16 @@ export default class PopUp extends Component {
   render() {
     return (
       <section className="section">
-        <input
-          className="btn"
-          type="button"
-          value="Pull Requests"
-          onClick={() => {
-            this.getPulls(this.props.url);
-          }}
-        />
+        <Link to={this.props.url}>
+          <input
+            className="btn"
+            type="button"
+            value="Pull Requests"
+            onClick={() => {
+              this.getPulls(this.props.url);
+            }}
+          />
+        </Link>
         <Modal
           className="modal"
           height="600px"
@@ -46,13 +49,15 @@ export default class PopUp extends Component {
         >
           <div className="pull-request">
             Pull Requests
-            <span className="btn-close" onClick={() => this.functionModal()}>
-              X
-            </span>
+            <Link to="/home">
+              <span className="btn-close" onClick={() => this.functionModal()}>
+                X
+              </span>
+            </Link>
           </div>
           <div className="body">
-            {this.state.pulls? 
-                this.state.pulls.map((item, index) => (
+            {this.state.pulls
+              ? this.state.pulls.map((item, index) => (
                   <Pull key={index} item={item}>
                     {item.id}
                   </Pull>

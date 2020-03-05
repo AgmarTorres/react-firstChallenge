@@ -8,21 +8,43 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { getData } from "../../redux/repositories/repositories.action";
 
-const Home = ({ repositories, page, getData }) => {
-  return (
-    <div className="home">
-      {repositories.total_count ? (
-        repositories.items.map((item, index) => (
-          <Repository id={index} key={index} item={item}></Repository>
-        ))
-      ) : (
-        <SpinnerOverlay>
-          <SpinnerContainer />
-        </SpinnerOverlay>
-      )}
-    </div>
-  );
-};
+class Home extends React.Component {
+  state = {
+    loading: false
+  };
+
+  componentDidMount() {
+    this.refs.myscroll.addEventListener("scroll", () => {
+      if (
+        this.refs.myscroll.scrollTop + this.refs.myscroll.clientHeight >=
+        this.refs.myscroll.scrollHeight
+      ) {
+        this.fetchMoreData();
+      }
+    });
+  }
+
+  fetchMoreData = () => {
+    const page = this.props.page ? this.props.page : 1;
+    getData(parseInt(page) + 1);
+  };
+
+  render() {
+    return (
+      <div className="home" ref="myscroll" style={{ height: "320px", overflow: "auto" }}>
+        {this.props.repositories && this.props.repositories.length > 0 ? (
+          this.props.repositories.map((item, index) => (
+            <Repository id={index} key={index} item={item}></Repository>
+          ))
+        ) : (
+          <SpinnerOverlay>
+            <SpinnerContainer />
+          </SpinnerOverlay>
+        )}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   repositories: state.repositories.repositories,
