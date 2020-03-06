@@ -1,5 +1,4 @@
 import { repositoryTypes } from "./repository.types";
-
 export function getData(page) {
   return function(dispatch) {
     return fetch(

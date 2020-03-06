@@ -19,7 +19,7 @@ const Repository = ({ item }) => {
             </div>
 
             <div className="user-name">
-              <label className="info-name">Author:</label>
+              <label className="info-name">Author: </label>
               <span className="username">{item.owner.login} </span>
             </div>
           </div>

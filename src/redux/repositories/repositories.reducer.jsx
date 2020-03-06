@@ -7,12 +7,13 @@ const initialState = {
 };
 
 function repositorieReducer(state = initialState, action) {
-  
   switch (action.type) {
     case repositoryTypes.FETCH_DATA_LOAD:
       return {
         ...state,
-        repositories: state.repositories.concat(action.payload.repositories.items),
+        repositories: state.repositories.concat(
+          action.payload.repositories.items
+        ),
         page: action.page
       };
     default:
